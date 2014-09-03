@@ -29,7 +29,7 @@ PROFILE_PATH="$BUILD_DIR/.profile.d/python.sh"
 
 DEFAULT_PYTHON_VERSION="python-2.7.8"
 DEFAULT_PYTHON_STACK="cedar"
-PYTHON_EXE="/app/.heroku/python/bin/python"
+PYTHON_EXE="$BUILD_DIR/.heroku/python/bin/python"
 PIP_VERSION="1.5.6"
 SETUPTOOLS_VERSION="5.4.1"
 
@@ -64,7 +64,7 @@ export BUILD_DIR CACHE_DIR BIN_DIR PROFILE_PATH
 source $BIN_DIR/utils
 
 # Directory Hacks for path consistiency.
-APP_DIR='/app'
+APP_DIR="$BUILD_DIR"
 TMP_APP_DIR=$CACHE_DIR/tmp_app_dir
 
 # Copy Anvil app dir to temporary storage...
@@ -90,11 +90,11 @@ BUILD_DIR=$APP_DIR
 export PATH=$BUILD_DIR/.heroku/python/bin:$BUILD_DIR/.heroku/vendor/bin:$PATH
 export PYTHONUNBUFFERED=1
 export LANG=en_US.UTF-8
-export C_INCLUDE_PATH=/app/.heroku/vendor/include:$BUILD_DIR/.heroku/vendor/include:/app/.heroku/python/include
-export CPLUS_INCLUDE_PATH=/app/.heroku/vendor/include:$BUILD_DIR/.heroku/vendor/include:/app/.heroku/python/include
-export LIBRARY_PATH=/app/.heroku/vendor/lib:$BUILD_DIR/.heroku/vendor/lib:/app/.heroku/python/lib
-export LD_LIBRARY_PATH=/app/.heroku/vendor/lib:$BUILD_DIR/.heroku/vendor/lib:/app/.heroku/python/lib
-export PKG_CONFIG_PATH=/app/.heroku/vendor/lib/pkg-config:$BUILD_DIR/.heroku/vendor/lib/pkg-config:/app/.heroku/python/lib/pkg-config
+export C_INCLUDE_PATH=$APP_DIR/.heroku/vendor/include:$BUILD_DIR/.heroku/vendor/include:$APP_DIR/.heroku/python/include
+export CPLUS_INCLUDE_PATH=$APP_DIR/.heroku/vendor/include:$BUILD_DIR/.heroku/vendor/include:$APP_DIR/.heroku/python/include
+export LIBRARY_PATH=$APP_DIR/.heroku/vendor/lib:$BUILD_DIR/.heroku/vendor/lib:$APP_DIR/.heroku/python/lib
+export LD_LIBRARY_PATH=$APP_DIR/.heroku/vendor/lib:$BUILD_DIR/.heroku/vendor/lib:$APP_DIR/.heroku/python/lib
+export PKG_CONFIG_PATH=$APP_DIR/.heroku/vendor/lib/pkg-config:$BUILD_DIR/.heroku/vendor/lib/pkg-config:$APP_DIR/.heroku/python/lib/pkg-config
 
 # Switch to the repo's context.
 cd $BUILD_DIR
@@ -178,14 +178,14 @@ sub-env $BIN_DIR/steps/collectstatic
 #
 
 # Set context environment variables.
-set-env PATH '$HOME/.heroku/python/bin:$PATH'
+set-env PATH "$APP_DIR/.heroku/python/bin:$PATH"
 set-env PYTHONUNBUFFERED true
-set-env PYTHONHOME /app/.heroku/python
-set-env LIBRARY_PATH /app/.heroku/vendor/lib:/app/.heroku/python/lib
-set-env LD_LIBRARY_PATH '/app/.heroku/vendor/lib:/app/.heroku/python/lib:$LD_LIBRARY_PATH'
+set-env PYTHONHOME $APP_DIR/.heroku/python
+set-env LIBRARY_PATH $APP_DIR/.heroku/vendor/lib:$APP_DIR/.heroku/python/lib
+set-env LD_LIBRARY_PATH "$APP_DIR/.heroku/vendor/lib:$APP_DIR/.heroku/python/lib:$LD_LIBRARY_PATH"
 set-default-env LANG en_US.UTF-8
 set-default-env PYTHONHASHSEED random
-set-default-env PYTHONPATH /app/
+set-default-env PYTHONPATH $APP_DIR/
 
 
 # Experimental post_compile hook.
