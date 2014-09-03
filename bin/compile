@@ -92,11 +92,11 @@ BUILD_DIR=$APP_DIR
 export PATH=$BUILD_DIR/.heroku/python/bin:$BUILD_DIR/.heroku/vendor/bin:$PATH
 export PYTHONUNBUFFERED=1
 export LANG=en_US.UTF-8
-export C_INCLUDE_PATH=$APP_DIR/.heroku/vendor/include:$BUILD_DIR/.heroku/vendor/include:$APP_DIR/.heroku/python/include
-export CPLUS_INCLUDE_PATH=$APP_DIR/.heroku/vendor/include:$BUILD_DIR/.heroku/vendor/include:$APP_DIR/.heroku/python/include
-export LIBRARY_PATH=$APP_DIR/.heroku/vendor/lib:$BUILD_DIR/.heroku/vendor/lib:$APP_DIR/.heroku/python/lib
-export LD_LIBRARY_PATH=$APP_DIR/.heroku/vendor/lib:$BUILD_DIR/.heroku/vendor/lib:$APP_DIR/.heroku/python/lib
-export PKG_CONFIG_PATH=$APP_DIR/.heroku/vendor/lib/pkg-config:$BUILD_DIR/.heroku/vendor/lib/pkg-config:$APP_DIR/.heroku/python/lib/pkg-config
+export C_INCLUDE_PATH=$APP_DIR/.heroku/vendor/include:$BUILD_DIR/.heroku/vendor/include:$APP_DIR/.heroku/python/include:$C_INCLUDE_PATH
+export CPLUS_INCLUDE_PATH=$APP_DIR/.heroku/vendor/include:$BUILD_DIR/.heroku/vendor/include:$APP_DIR/.heroku/python/include:$CPLUS_INCLUDE_PATH
+export LIBRARY_PATH=$APP_DIR/.heroku/vendor/lib:$BUILD_DIR/.heroku/vendor/lib:$APP_DIR/.heroku/python/lib:$LIBRARY_PATH
+export LD_LIBRARY_PATH=$APP_DIR/.heroku/vendor/lib:$BUILD_DIR/.heroku/vendor/lib:$APP_DIR/.heroku/python/lib:$LD_LIBRARY_PATH
+export PKG_CONFIG_PATH=$APP_DIR/.heroku/vendor/lib/pkg-config:$BUILD_DIR/.heroku/vendor/lib/pkg-config:$APP_DIR/.heroku/python/lib/pkg-config:$PKG_CONFIG_PATH
 
 # Switch to the repo's context.
 cd $BUILD_DIR
